@@ -1,0 +1,7 @@
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--chat-bg);
+  overflow: hidden;
+  position: relative;
+}

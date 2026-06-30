@@ -1,0 +1,137 @@
+:root {
+  --sidebar-bg: #09000e;
+  --sk1: #1a0025;
+  --sk2: #220030;
+  --border: rgba(255, 255, 255, 0.06);
+}
+
+/* SKELETON BASE */
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+.sk {
+  background: linear-gradient(
+    90deg,
+    var(--sk1) 25%,
+    var(--sk2) 50%,
+    var(--sk1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: 6px;
+}
+
+/* SIDEBAR SKELETON */
+.sidebar {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sidebar-head {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.sk-title {
+  height: 20px;
+  width: 80px;
+  margin-bottom: 0.75rem;
+}
+.sk-search {
+  height: 40px;
+  border-radius: 8px;
+}
+
+.sk-contacts {
+  flex: 1;
+  overflow: hidden;
+  padding: 0.4rem 0;
+}
+.sk-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  animation: fadeIn 0.4s ease both;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.sk-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sk-contact-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sk-name {
+  height: 11px;
+  border-radius: 5px;
+}
+.sk-last {
+  height: 9px;
+  border-radius: 5px;
+  width: 70%;
+}
+.sk-contact-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.sk-time {
+  height: 9px;
+  width: 36px;
+  border-radius: 5px;
+}
+
+.sk-c1 {
+  animation-delay: 0.05s;
+}
+.sk-c2 {
+  animation-delay: 0.1s;
+}
+.sk-c3 {
+  animation-delay: 0.15s;
+}
+.sk-c4 {
+  animation-delay: 0.2s;
+}
+.sk-c5 {
+  animation-delay: 0.25s;
+}
+.sk-c6 {
+  animation-delay: 0.3s;
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow: auto;
+  }
+  .app {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .chat-panel {
+    display: none;
+  }
+}

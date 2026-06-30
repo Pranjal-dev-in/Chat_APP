@@ -1,0 +1,27 @@
+html,
+body {
+  min-height: 92vh;
+}
+:root {
+  --bubble-me: #4e1e78a6;
+  --bubble-them: rgba(25, 5, 38, 0.8);
+}
+
+/* ── LAYOUT ── */
+.app {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: calc(100vh - 54px);
+  margin-top: 54px;
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow: auto;
+  }
+  .app {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
