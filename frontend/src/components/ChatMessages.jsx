@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, Fragment } from "react";
-import "./chatMessage.css";
+import "./ChatMessage.css";
 import { useChatStore } from "../store/useChatStore";
 import MessageBubble from "./MessageBubble";
 import MessageSkeleton from "../skeletons/MessageSkeleton";
