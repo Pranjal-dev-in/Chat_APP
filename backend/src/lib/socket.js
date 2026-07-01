@@ -10,6 +10,7 @@ const allowedOrigins = ["http://localhost:5173", process.env.CLIENT_URL];
 const io = new Server(server, {
   cors: {
     origin: allowedOrigins,
+    credentials: true,
   },
 });
 
