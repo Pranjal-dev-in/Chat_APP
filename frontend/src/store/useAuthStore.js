@@ -4,8 +4,7 @@ import toast from "react-hot-toast";
 import { useChatStore } from "./useChatStore";
 import { io } from "socket.io-client";
 
-const BASE_URL =
-  `${import.meta.env.VITE_API_URL}/api` || "http://localhost:3000";
+const SOCKET_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
@@ -14,7 +13,7 @@ export const useAuthStore = create((set, get) => ({
   isSigningUp: false,
   isLogingIn: false,
   socket: null,
-  onlineUser: {},
+  onlineUser: [],
 
   checkAuth: async () => {
     try {
@@ -69,7 +68,7 @@ export const useAuthStore = create((set, get) => ({
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
 
-    const socket = io(BASE_URL, {
+    const socket = io(SOCKET_URL, {
       query: {
         userId: authUser._id,
       },
