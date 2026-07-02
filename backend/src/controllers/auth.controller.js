@@ -32,12 +32,13 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
-      generateJWT(newUser._id, res);
+      const token = generateJWT(newUser._id);
       await newUser.save();
       res.status(201).json({
-        id: newUser._id,
+        _id: newUser._id,
         fullName: newUser.fullName,
         email: newUser.email,
+        token,
       });
     } else {
       return res.status(400).json({ message: "Invalid user data" });
@@ -74,11 +75,12 @@ export const login = async (req, res) => {
         .status(400)
         .json({ message: "Email or password is incorrect" });
     }
-    generateJWT(user._id, res);
+    const token = generateJWT(user._id, res);
     res.status(200).json({
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
+      token,
     });
   } catch (error) {
     console.log("Error in login : " + error);
@@ -88,7 +90,6 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    res.cookie("sid", "", { maxAge: 0 });
     return res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     console.log("Error in logout : " + error);

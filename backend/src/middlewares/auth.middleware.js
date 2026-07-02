@@ -3,14 +3,15 @@ import { User } from "../models/auth.model.js";
 
 export const isLoggedIn = async (req, res, next) => {
   try {
-    const token = req.cookies.sid;
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res
         .status(401)
         .json({ message: "Unauthorised : No token provided" });
     }
 
+    const token = authHeader.split(" ")[1];
     const decode = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decode) {

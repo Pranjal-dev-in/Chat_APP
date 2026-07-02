@@ -4,8 +4,11 @@ import toast from "react-hot-toast";
 import { useChatStore } from "./useChatStore";
 import { io } from "socket.io-client";
 
-const SOCKET_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
+const SOCKET_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:3000"
+    : import.meta.env.VITE_API_URL;
+    
 export const useAuthStore = create((set, get) => ({
   authUser: null,
   isCheckingAuth: true,
@@ -29,6 +32,7 @@ export const useAuthStore = create((set, get) => ({
 
   logout: async () => {
     const res = await axiosInstanace.post("/auth/logout");
+    localStorage.removeItem("token");
     set({ authUser: null });
     useChatStore.getState().setSelectedUser(null);
     toast.success(res.data.message);
@@ -40,6 +44,7 @@ export const useAuthStore = create((set, get) => ({
     set({ isSigningUp: true });
     try {
       const res = await axiosInstanace.post("/auth/signup", data);
+      localStorage.setItem("token", res.data.token);
       set({ authUser: res.data });
       toast.success("Account created successfully");
       get().connectSocket();
@@ -54,6 +59,7 @@ export const useAuthStore = create((set, get) => ({
     set({ isLogingIn: true });
     try {
       const res = await axiosInstanace.post("/auth/login", data);
+      localStorage.setItem("token", res.data.token);
       set({ authUser: res.data });
       toast.success("Login successfully");
       get().connectSocket();
@@ -68,13 +74,16 @@ export const useAuthStore = create((set, get) => ({
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
 
+    const token = localStorage.getItem("token");
     const socket = io(SOCKET_URL, {
-      query: {
-        userId: authUser._id,
-      },
+      auth: { token },
     });
     socket.connect();
     set({ socket: socket });
+
+    socket.on("connect_error", (err) => {
+      console.log("Socket connection error:", err.message);
+    });
 
     socket.on("getOnlineUsers", (userIds) => {
       set({ onlineUser: userIds });
