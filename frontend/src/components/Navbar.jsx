@@ -2,7 +2,7 @@ import React from "react";
 import "./Navbar.css";
 import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
-import { CircleUserRound, LogOut } from "lucide-react";
+import { CircleUserRound, LogOut, LogIn, UserRoundPlus } from "lucide-react";
 
 function Navbar() {
   const { authUser, logout } = useAuthStore();
@@ -84,28 +84,39 @@ function Navbar() {
         {authUser ? (
           <>
             <button
-              className="nav-link nav-logout flex items-center gap-2"
+              className="nav-link nav-logout flex items-center gap-0 sm:gap-2"
               title="Profile"
               onClick={() => logout()}
             >
               <CircleUserRound className="size-4" />
-              Profile
+              <span className="hidden sm:inline">Profile</span>
             </button>
             <button
-              className="nav-link nav-logout flex items-center gap-2"
+              className="nav-link nav-logout flex items-center gap-0 sm:gap-2"
               title="Logout"
               onClick={() => logout()}
             >
-              <LogOut className="size-4" /> logout
+              <LogOut className="size-4" />
+              <span className="hidden sm:inline">logout</span>
             </button>
           </>
         ) : (
           <>
-            <Link to={"/login"} className="nav-link">
-              login
+            <Link
+              to={"/login"}
+              className="nav-link flex items-center gap-0 sm:gap-2"
+              title="Login"
+            >
+              <LogIn className="size-4" />
+              <span className="hidden sm:inline">login</span>
             </Link>
-            <Link to={"/signup"} className="nav-link active">
-              sign up
+            <Link
+              to={"/signup"}
+              className="nav-link flex items-center gap-0 sm:gap-2"
+              title="Signup"
+            >
+              <UserRoundPlus className="size-4" />
+              <span className="hidden sm:inline">sign up</span>
             </Link>
           </>
         )}

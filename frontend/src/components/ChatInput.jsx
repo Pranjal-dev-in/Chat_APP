@@ -2,23 +2,38 @@ import React, { useRef, useState } from "react";
 import "./ChatInput.css";
 import { useChatStore } from "../store/useChatStore";
 import toast from "react-hot-toast";
+import { useAuthStore } from "../store/useAuthStore";
 
 function ChatInput() {
   const [text, setText] = useState("");
-  const { sendMessage } = useChatStore();
+  const { sendMessage, setMessage, selectedUser } = useChatStore();
+  const { authUser } = useAuthStore();
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!text.trim() && !imagePreview) return;
+    const tempId = crypto.randomUUID();
+    setMessage({
+      text,
+      image: imagePreview,
+      senderId: authUser._id,
+      receiverId: selectedUser._id,
+      createdAt: Date.now(),
+      status: "sending",
+      _id: tempId,
+    });
+    setText("");
+    setImagePreview(null);
     try {
-      await sendMessage({
-        text: text,
-        image: imagePreview,
-      });
-      setText("");
-      setImagePreview(null);
+      await sendMessage(
+        {
+          text: text,
+          image: imagePreview,
+        },
+        tempId,
+      );
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (error) {
       toast.error("Failed to send message");

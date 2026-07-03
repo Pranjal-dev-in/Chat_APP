@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import { useChatStore } from "../store/useChatStore";
 import SidebarSkeleton from "../skeletons/SidebarSkeleton";
@@ -6,9 +6,22 @@ import { User } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 
 function Sidebar() {
-  const { isUserLoading, selectedUser, users, setSelectedUser, getUsers } =
-    useChatStore();
+  const {
+    isUserLoading,
+    selectedUser,
+    users,
+    setSelectedUser,
+    getUsers,
+    filterUser,
+    filteredUser,
+  } = useChatStore();
+
   const { onlineUser } = useAuthStore();
+  const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    filterUser(e.target.value);
+  };
 
   useEffect(() => {
     getUsers();
@@ -41,12 +54,14 @@ function Sidebar() {
             className="search-input"
             type="text"
             placeholder="search chats..."
+            onChange={handleSearch}
+            value={search}
           />
         </div>
       </div>
 
       <div className="contacts">
-        {users.map((user) => (
+        {filteredUser.map((user) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}

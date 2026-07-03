@@ -6,7 +6,7 @@ import "./ChatContainer.css";
 
 function ChatContainer() {
   return (
-    <section className="chat-panel">
+    <section className="chat-panel relative">
       <ChatHeader />
       <ChatMessages />
       <ChatInput />

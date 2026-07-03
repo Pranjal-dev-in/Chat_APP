@@ -6,16 +6,20 @@ import { useAuthStore } from "./useAuthStore";
 export const useChatStore = create((set, get) => ({
   selectedUser: null,
   users: [],
+  filteredUser: [],
   messages: [],
 
   isUserLoading: false,
   isMessageLoading: false,
+
+  setMessage: (msg) => set((state) => ({ messages: [...state.messages, msg] })),
 
   getUsers: async () => {
     set({ isUserLoading: true });
     try {
       const res = await axiosInstanace.get("/message/users");
       set({ users: res.data });
+      set({ filteredUser: res.data });
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -35,14 +39,19 @@ export const useChatStore = create((set, get) => ({
     }
   },
 
-  sendMessage: async (messageData) => {
+  sendMessage: async (messageData, tempId) => {
     const { selectedUser, messages } = get();
     try {
       const res = await axiosInstanace.post(
         `/message/send/${selectedUser._id}`,
         messageData,
       );
-      set({ messages: [...messages, res.data] });
+
+      set((state) => ({
+        messages: state.messages.map((msg) =>
+          msg._id === tempId ? res.data : msg,
+        ),
+      }));
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -65,4 +74,13 @@ export const useChatStore = create((set, get) => ({
   },
 
   setSelectedUser: (selectedUser) => set({ selectedUser }),
+
+  filterUser: (text) => {
+    const { users } = get();
+
+    const filteredUser = users.filter((user) =>
+      user.fullName.toLowerCase().startsWith(text.toLowerCase()),
+    );
+    set({ filteredUser: text ? filteredUser : users });
+  },
 }));

@@ -9,7 +9,7 @@ function ChatHeader() {
   const { onlineUser } = useAuthStore();
 
   return (
-    <div className="chat-header">
+    <div className="chat-header fixed w-full z-10">
       <div className="chat-header-left">
         <button onClick={() => setSelectedUser(null)}>
           <svg
@@ -53,7 +53,7 @@ function ChatHeader() {
           )}
         </div>
       </div>
-      <div className="chat-header-actions">
+      {/* <div className="chat-header-actions">
         <button className="chat-action" title="Call">
           <svg
             width="15"
@@ -100,7 +100,7 @@ function ChatHeader() {
             <circle cx="12" cy="19" r="1" />
           </svg>
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

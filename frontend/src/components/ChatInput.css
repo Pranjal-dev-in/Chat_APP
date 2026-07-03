@@ -19,11 +19,11 @@
   left: 50px;
   bottom: 1px;
 }
-.image-preview img{
+.image-preview img {
   /* height: 100%; */
   width: 100%;
 }
-.image-preview button{
+.image-preview button {
   position: absolute;
   top: -8px;
   right: -8px;
@@ -113,4 +113,18 @@
 .send-btn:hover {
   background: #4e1e78;
   box-shadow: 0 4px 14px rgba(61, 21, 96, 0.5);
+}
+
+@media (max-width: 768px) {
+  .chat-input-bar {
+    position: fixed;
+    width: 100%;
+    background: rgba(9, 0, 14);
+    bottom: 0;
+  }
+  .image-preview{
+    position: fixed;
+    left: 20px;
+    bottom: 65px;
+  }
 }
