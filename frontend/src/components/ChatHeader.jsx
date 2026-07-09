@@ -1,16 +1,17 @@
 import React from "react";
-import "./ChatHeader.css";
+import { useNavigate } from "react-router-dom";
 import { useChatStore } from "../store/useChatStore";
 import { User } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 
 function ChatHeader() {
-  const { selectedUser, setSelectedUser } = useChatStore();
+  const { selectedUser, setSelectedUser, setProfileShow } = useChatStore();
   const { onlineUser } = useAuthStore();
+  const navigate = useNavigate();
 
   return (
-    <div className="chat-header fixed w-full z-10">
-      <div className="chat-header-left">
+    <div className="fixed w-full z-10 py-3 px-[1.2rem] border-b border-[rgba(255,255,255,0.06)] flex items-center justify-between shrink-0 bg-[rgba(9,0,14,0.6)] backdrop-blur-md">
+      <div className="flex items-center gap-3">
         <button onClick={() => setSelectedUser(null)}>
           <svg
             width="20"
@@ -27,34 +28,47 @@ function ChatHeader() {
             />
           </svg>
         </button>
-        <div className="chat-header-avatar">
+        <div className="w-9 h-9 rounded-full bg-[#3d1560] flex items-center justify-center text-[0.72rem] font-semibold text-[#c9a0f5] border-[1.5px] border-[#7a52aa] shrink-0 relative">
           {selectedUser.profilePic ? (
             <>
-              <img src={selectedUser.profilePic} alt="dp" />
+              <img
+                src={selectedUser.profilePic}
+                alt="dp"
+                className="h-full rounded-full"
+              />
               {onlineUser.includes(selectedUser._id) && (
-                <span className="online-dot"></span>
+                <span className="absolute bottom-px right-px w-2.25 h-2.25 rounded-full bg-[#5cb85c] border-2 border-[#09000e]"></span>
               )}
             </>
           ) : (
             <>
               <User className="size-4" />
               {onlineUser.includes(selectedUser._id) && (
-                <span className="online-dot"></span>
+                <span className="absolute bottom-px right-px w-2.25 h-2.25 rounded-full bg-[#5cb85c] border-2 border-[#09000e]"></span>
               )}
             </>
           )}
         </div>
-        <div className="chat-header-info">
-          <div className="chat-header-name">{selectedUser.fullName}</div>
+        <div onClick={() => setProfileShow(true)} className="cursor-pointer">
+          <div className="text-[0.88rem] font-semibold text-[#cdb8dd]">
+            {selectedUser.fullName}
+          </div>
           {onlineUser.includes(selectedUser._id) ? (
-            <div className="chat-header-status online">Online</div>
+            <div className="text-[0.68rem] flex items-center gap-1 text-[#5cb85c]">
+              Online
+            </div>
           ) : (
-            <div className="chat-header-status">Offline</div>
+            <div className="text-[0.68rem] flex items-center gap-1 text-[#7a5c88]">
+              Offline
+            </div>
           )}
         </div>
       </div>
-      {/* <div className="chat-header-actions">
-        <button className="chat-action" title="Call">
+      {/* <div className="flex gap-1">
+        <button
+          className="w-[30px] h-[30px] border-none bg-transparent rounded-[7px] cursor-pointer text-[#7a5c88] flex items-center justify-center transition-colors duration-150 hover:bg-[rgba(155,111,212,0.12)] hover:text-[#9b6fd4]"
+          title="Call"
+        >
           <svg
             width="15"
             height="15"
@@ -70,7 +84,10 @@ function ChatHeader() {
             />
           </svg>
         </button>
-        <button className="chat-action" title="Video">
+        <button
+          className="w-[30px] h-[30px] border-none bg-transparent rounded-[7px] cursor-pointer text-[#7a5c88] flex items-center justify-center transition-colors duration-150 hover:bg-[rgba(155,111,212,0.12)] hover:text-[#9b6fd4]"
+          title="Video"
+        >
           <svg
             width="15"
             height="15"
@@ -86,7 +103,10 @@ function ChatHeader() {
             />
           </svg>
         </button>
-        <button className="chat-action" title="More">
+        <button
+          className="w-[30px] h-[30px] border-none bg-transparent rounded-[7px] cursor-pointer text-[#7a5c88] flex items-center justify-center transition-colors duration-150 hover:bg-[rgba(155,111,212,0.12)] hover:text-[#9b6fd4]"
+          title="More"
+        >
           <svg
             width="15"
             height="15"

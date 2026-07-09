@@ -1,14 +1,13 @@
 import React from "react";
-import "./NoChatContainer.css";
 
 function NoChatContainer() {
   return (
-    <section className="right-panel">
-      <canvas id="c"></canvas>
-      <div className="right-glow"></div>
-      <div className="empty-content">
+    <section className="hidden md:flex items-center justify-center relative overflow-hidden bg-[#080010]">
+      <canvas id="c" className="absolute inset-0 w-full h-full"></canvas>
+      <div className="absolute w-90 h-90 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none bg-[radial-gradient(circle,rgba(61,21,96,0.22)_0%,transparent_68%)] animate-glow-pulse"></div>
+      <div className="relative z-2 text-center flex flex-col items-center gap-[1.1rem] animate-fade-up">
         <svg
-          className="empty-gem"
+          className="animate-float-g filter-[drop-shadow(0_0_16px_rgba(155,111,212,0.3))]"
           width="80"
           height="80"
           viewBox="0 0 28 28"
@@ -70,13 +69,16 @@ function NoChatContainer() {
             opacity=".3"
           />
         </svg>
-        <div className="empty-title">
-          your chats, <em>all in one place</em>
+        <div className="font-['Comfortaa',cursive] font-bold text-[1.3rem] text-[#c0a8d8] tracking-[-0.01em]">
+          your chats,{" "}
+          <em className="not-italic text-[#9b6fd4]">all in one place</em>
         </div>
-        <p className="empty-sub">
+        <p className="text-[0.78rem] text-[#7a5c88] leading-[1.7] max-w-55">
           select a contact from the left to start a conversation ✨
         </p>
-        <div className="arrow-hint">← pick someone to chat with</div>
+        <div className="flex items-center gap-1.5 text-[0.72rem] text-[#3e2449] bg-[rgba(155,111,212,0.07)] border border-[rgba(155,111,212,0.12)] px-3.5 py-1.5 rounded-full animate-pulse-fade">
+          ← pick someone to chat with
+        </div>
       </div>
     </section>
   );

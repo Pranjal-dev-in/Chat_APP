@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, Fragment } from "react";
-import "./ChatMessage.css";
 import { useChatStore } from "../store/useChatStore";
 import MessageBubble from "./MessageBubble";
 import MessageSkeleton from "../skeletons/MessageSkeleton";
@@ -38,7 +37,7 @@ function ChatMessages() {
   }
 
   return (
-    <div className="messages">
+    <div className="flex-1 overflow-y-auto pt-16 pr-[1.2rem] pl-[1.2rem] pb-2 max-md:pb-16 flex flex-col gap-[0.6rem] [&::-webkit-scrollbar]:w-0.75 [&::-webkit-scrollbar-thumb]:bg-[#3e2449] [&::-webkit-scrollbar-thumb]:rounded-[3px]">
       {messages.map((msg, index) => {
         const currentDate = new Date(msg.createdAt).toDateString();
         const prevDate =
@@ -49,7 +48,9 @@ function ChatMessages() {
         return (
           <React.Fragment key={msg._id}>
             {showDateDivider && (
-              <div className="date-sep">{formatMessageDate(msg.createdAt)}</div>
+              <div className="text-center text-[0.65rem] text-[#3e2449] py-[0.4rem] tracking-[0.04em]">
+                {formatMessageDate(msg.createdAt)}
+              </div>
             )}
 
             <MessageBubble message={msg} />

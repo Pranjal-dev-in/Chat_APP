@@ -3,12 +3,12 @@ import { useChatStore } from "../store/useChatStore";
 import Sidebar from "../components/Sidebar";
 import ChatContainer from "../components/ChatContainer";
 import NoChatContainer from "../components/NoChatContainer";
-import "./HomePage.css";
+// import "./HomePage.css";
 
 function HomePage() {
   const { selectedUser } = useChatStore();
   return (
-    <div className="app">
+    <div className="grid md:grid-cols-[300px_1fr] h-[calc(100vh-56px)] mt-12 md:mt-14">
       <Sidebar />
 
       {selectedUser ? <ChatContainer /> : <NoChatContainer />}

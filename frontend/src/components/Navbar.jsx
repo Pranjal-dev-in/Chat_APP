@@ -1,15 +1,14 @@
 import React from "react";
-import "./Navbar.css";
-import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 import { CircleUserRound, LogOut, LogIn, UserRoundPlus } from "lucide-react";
 
 function Navbar() {
   const { authUser, logout } = useAuthStore();
   return (
-    <nav>
-      <a className="nav-logo" href="#">
-        <svg className="nav-logo-gem" viewBox="0 0 28 28" fill="none">
+    <nav className="fixed top-0 left-0 right-0 z-10 h-14 flex items-center justify-between px-4 md:px-[1.6rem] bg-[#08000ef0] backdrop-blur-xl">
+      <a className="flex items-center gap-2 shrink-0 no-underline">
+        <svg className="w-7 h-7 shrink-0" viewBox="0 0 28 28" fill="none">
           <polygon
             points="14,1 25,8 25,20 14,27 3,20 3,8"
             fill="none"
@@ -75,16 +74,16 @@ function Navbar() {
           />
           <circle cx="14" cy="13" r="1.8" fill="#9b6fd4" opacity="0.9" />
         </svg>
-        <span className="nav-logo-name">
-          nex<em>chat</em>
+        <span className="font-['Comfortaa',cursive] font-bold text-[1.05rem] text-[#cdb8dd] tracking-[0.01em] max-[420px]:text-[0.95rem]">
+          nex<em className="not-italic text-[#9b6fd4]">chat</em>
         </span>
       </a>
 
-      <div className="nav-right">
+      <div className="flex items-center gap-1">
         {authUser ? (
           <>
             <button
-              className="nav-link nav-logout flex items-center gap-0 sm:gap-2"
+              className="flex items-center gap-0 sm:gap-2 font-['Outfit',sans-serif] text-[0.78rem] font-medium px-3.25 py-1.5 bg-transparent border-none rounded-[7px] cursor-pointer no-underline whitespace-nowrap transition-colors duration-150 text-[#4a3158] hover:text-[#c97070] hover:bg-[rgba(200,100,100,0.08)]"
               title="Profile"
               onClick={() => logout()}
             >
@@ -92,7 +91,7 @@ function Navbar() {
               <span className="hidden sm:inline">Profile</span>
             </button>
             <button
-              className="nav-link nav-logout flex items-center gap-0 sm:gap-2"
+              className="flex items-center gap-0 sm:gap-2 font-['Outfit',sans-serif] text-[0.78rem] font-medium px-3.25 py-1.5 bg-transparent border-none rounded-[7px] cursor-pointer no-underline whitespace-nowrap transition-colors duration-150 text-[#4a3158] hover:text-[#c97070] hover:bg-[rgba(200,100,100,0.08)]"
               title="Logout"
               onClick={() => logout()}
             >
@@ -104,7 +103,7 @@ function Navbar() {
           <>
             <Link
               to={"/login"}
-              className="nav-link flex items-center gap-0 sm:gap-2"
+              className="flex items-center gap-0 sm:gap-2 font-['Outfit',sans-serif] text-[0.8rem] font-medium px-3.25 py-1.5 bg-transparent border-none rounded-[7px] cursor-pointer no-underline whitespace-nowrap transition-colors duration-150 text-[#9278a8] hover:bg-white/5 hover:text-[#cdb8dd]"
               title="Login"
             >
               <LogIn className="size-4" />
@@ -112,7 +111,7 @@ function Navbar() {
             </Link>
             <Link
               to={"/signup"}
-              className="nav-link flex items-center gap-0 sm:gap-2"
+              className="flex items-center gap-0 sm:gap-2 font-['Outfit',sans-serif] text-[0.8rem] font-medium px-3.25 py-1.5 bg-transparent border-none rounded-[7px] cursor-pointer no-underline whitespace-nowrap transition-colors duration-150 text-[#9278a8] hover:bg-white/5 hover:text-[#cdb8dd]"
               title="Signup"
             >
               <UserRoundPlus className="size-4" />

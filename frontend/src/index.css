@@ -1,1 +1,169 @@
 @import "tailwindcss";
+
+:root {
+  --bg: #0d0012;
+  --bg-form: #0a000f;
+  --bg-right: #080010;
+  --nav-bg: #08000ef0;
+  --border: #ffffff0f;
+  --border2: #ffffff17;
+  --text: #cdb8dd;
+  --text-soft: #9278a8;
+  --text-faint: #4a3158;
+  --accent: #9b6fd4;
+  --accent-soft: #7a52aa;
+  --accent-glow: rgba(155, 111, 212, 0.15);
+  --btn-bg: #3d1560;
+  --btn-hover: #4e1e78;
+  --input-bg: rgba(255, 255, 255, 0.025);
+  --radius: 11px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Outfit", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.application-loader {
+  border: 1px solid #ffffff40;
+}
+
+@theme {
+  /* =========================
+     Animations
+     ========================= */
+
+  --animate-float-gem: floatGem 5s ease-in-out infinite;
+  --animate-fade-slide: fadeSlide 0.6s ease both;
+  --animate-glow-pulse: glowPulse 7s ease-in-out infinite;
+  --animate-slide-in: slideIn 0.35s ease both;
+  --animate-fade-up: fadeUp 0.6s ease both;
+  --animate-float-g: floatG 5s ease-in-out infinite;
+  --animate-pulse-fade: pulseFade 2.5s ease-in-out infinite;
+  --animate-msg-in: fadeSlide 0.3s ease both;
+  --animate-shimmer: shimmer 1.8s ease-in-out infinite;
+  --animate-fade-in: fadeIn 0.4s ease both;
+  --animate-msg-fade: msgFade 0.4s ease both;
+
+  @keyframes floatGem {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+      transform: translateY(-12px) rotate(2deg);
+    }
+  }
+
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes glowPulse {
+    0%,
+    100% {
+      opacity: 0.6;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes floatG {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+      transform: translateY(-10px) rotate(2deg);
+    }
+  }
+
+  @keyframes pulseFade {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% center;
+    }
+
+    100% {
+      background-position: -200% center;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes msgFade {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

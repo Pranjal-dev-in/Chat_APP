@@ -11,6 +11,9 @@ export const useChatStore = create((set, get) => ({
 
   isUserLoading: false,
   isMessageLoading: false,
+  isProfileShow: false,
+
+  setProfileShow: (val) => set({ isProfileShow: val }),
 
   setMessage: (msg) => set((state) => ({ messages: [...state.messages, msg] })),
 

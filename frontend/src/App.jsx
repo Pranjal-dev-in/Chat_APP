@@ -5,43 +5,41 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
 import { useAuthStore } from "./store/useAuthStore";
-import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
+import ApplicationLoader from "./components/ApplicationLoader";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth, onlineUser } = useAuthStore();
-
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
-  if (isCheckingAuth && !authUser)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader className="size-8 animate-spin" />
-      </div>
-    );
+  if (isCheckingAuth && !authUser) return <ApplicationLoader />;
 
   return (
-    <div>
+    <>
       <Navbar />
       <Routes>
         <Route
           path="/"
-          element={authUser ? <HomePage /> : <Navigate to="/login" />}
+          element={authUser ? <HomePage /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/signup"
-          element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
+          element={!authUser ? <SignUpPage /> : <Navigate to="/" replace />}
         />
         <Route
           path="/login"
-          element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+          element={!authUser ? <LoginPage /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={authUser ? "/" : "/login"} replace />}
         />
       </Routes>
 
       <Toaster />
-    </div>
+    </>
   );
 };
 
